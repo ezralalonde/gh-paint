@@ -11,13 +11,16 @@
   "devDependencies": {
     "babel-eslint": "^7.2.3",
     "prettier-eslint": "^6.4.2",
-    "react-scripts": "1.0.11"
+    "react-scripts": "1.0.11",
+    "@storybook/react": "^3.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "license": "BSD-3-Clause"
 }
