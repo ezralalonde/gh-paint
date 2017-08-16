@@ -6,7 +6,7 @@ import "./calendar.css"
 const Day = ({ date, offset }) => {
   return (
     <div className="day">
-      Day {offset} {date.format()}
+      {offset}
     </div>
   )
 }
@@ -16,7 +16,6 @@ const Week = ({ basedate, index, length }) => {
   let days = Array(length).fill(0)
   return (
     <div className="week">
-      Week {index}
       {days.map((_, ii) =>
         <Day date={basedate.clone().add(ii, "days")} offset={ii} />
       )}

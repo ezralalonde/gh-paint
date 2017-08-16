@@ -1,12 +1,17 @@
 .day {
   background: red;
+  height: 1em;
+  width: 1em;
+  margin: 0.1em;
 }
 
 .week {
   display: flex;
+  flex-direction: column;
   background: blue;
 }
 
 .year {
+  display: flex;
   background: yellow;
 }
