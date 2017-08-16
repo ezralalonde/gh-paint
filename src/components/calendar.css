@@ -1,0 +1,12 @@
+.day {
+  background: red;
+}
+
+.week {
+  display: flex;
+  background: blue;
+}
+
+.year {
+  background: yellow;
+}

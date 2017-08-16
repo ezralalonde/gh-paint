@@ -1,10 +1,11 @@
 import React from "react"
 import moment from "moment"
+import "./calendar.css"
 
 // display a single day
 const Day = ({ date, offset }) => {
   return (
-    <div>
+    <div className="day">
       Day {offset} {date.format()}
     </div>
   )
@@ -14,7 +15,7 @@ const Day = ({ date, offset }) => {
 const Week = ({ basedate, index, length }) => {
   let days = Array(length).fill(0)
   return (
-    <div>
+    <div className="week">
       Week {index}
       {days.map((_, ii) =>
         <Day date={basedate.clone().add(ii, "days")} offset={ii} />
@@ -32,7 +33,7 @@ const Calendar = ({ year }) => {
   let days = end.diff(start, "days") + 1
   let weeks = Array(Math.ceil(days / 7)).fill(0)
   return (
-    <div>
+    <div className="year">
       {days}
       {weeks.map((_, ii) =>
         <Week
