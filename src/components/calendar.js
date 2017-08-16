@@ -37,7 +37,7 @@ const Calendar = ({ year }) => {
       {weeks.map((_, ii) =>
         <Week
           basedate={start.clone().add(ii, "weeks")}
-          length={(ii + 1) * 7 < days ? 7 : days % 7}
+          length={(ii + 1) * 7 <= days ? 7 : days % 7}
           index={ii}
         />
       )}
