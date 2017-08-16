@@ -1,0 +1,17 @@
+.square {
+  width: 1em;
+  height: 1em;
+  margin: 0.1em;
+  background: red;
+}
+
+.text {
+  padding-left: 1em;
+  padding-right: 1em;
+  background: red;
+}
+
+.pallette {
+  display: flex;
+  background: yellow;
+}

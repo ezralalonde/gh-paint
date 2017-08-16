@@ -5,6 +5,7 @@ import { action } from "@storybook/addon-actions"
 import { linkTo } from "@storybook/addon-links"
 
 import Calendar from "../components/calendar"
+import Pallette from "../components/pallette"
 
 import { Button, Welcome } from "@storybook/react/demo"
 
@@ -30,3 +31,5 @@ storiesOf("Calendar", module)
   .add("2010", () => <Calendar year="2010" />)
   .add("2009", () => <Calendar year="2009" />)
   .add("2008", () => <Calendar year="2008" />)
+
+storiesOf("Pallette", module).add("Basic", () => <Pallette />)
