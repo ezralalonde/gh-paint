@@ -1,10 +1,22 @@
 import React from "react"
 import "./pallette.css"
 
-const Square = ({ shade }) => {
+// each of the squares that represents a selectable colour
+const Square = ({ shade, index, group }) => {
   return (
     <div className="square">
-      {shade}
+      <input
+        id={`${group}${index}`}
+        type="radio"
+        name={group}
+        value={shade}
+        defaultChecked={index === 0} // first item is selected by default
+      />
+      <label
+        id={`label${group}${index}`}
+        htmlFor={`${group}${index}`}
+        style={{ backgroundColor: shade }}
+      />
     </div>
   )
 }
@@ -17,11 +29,18 @@ const Text = ({ children }) => {
   )
 }
 
+// the shades available for selection
+const shades = ["#eee", "#c6e48b", "#7bc96f", "#239a3b", "#196127"]
+
 const Pallette = () => {
   return (
     <div className="pallette">
       <Text>Less</Text>
-      {Array(5).fill(0).map((_, ii) => <Square shade={ii} />)}
+      {Array(5)
+        .fill(0)
+        .map((_, ii) =>
+          <Square group="colour" shade={shades[ii]} index={ii} />
+        )}
       <Text>More</Text>
     </div>
   )

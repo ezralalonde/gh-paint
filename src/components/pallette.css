@@ -1,8 +1,24 @@
-.square {
+.square label {
+  display: block;
   width: 1em;
   height: 1em;
-  margin: 0.1em;
-  background: red;
+  margin: 0.2em;
+  border-spacing: 1em;
+  text-align: center;
+  font-size: 1em;
+  line-height: 1em;
+}
+
+.square input {
+  display: none;
+}
+
+.square input:checked+label::before {
+  content:"✓";
+}
+
+.square input:checked+label {
+  box-shadow: 0 0 0 2px yellow, 0 0 0 3px black;
 }
 
 .text {
@@ -13,5 +29,6 @@
 
 .pallette {
   display: flex;
+  align-items: center;
   background: yellow;
 }
