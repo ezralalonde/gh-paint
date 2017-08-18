@@ -2,10 +2,29 @@ import React from "react"
 import moment from "moment"
 import "./calendar.css"
 
+let paintingAllowed = false
+
+const allowPainting = event => {
+  event.preventDefault()
+  paintingAllowed = true
+}
+
+const blockPainting = () => {
+  paintingAllowed = false
+}
+
+// mark the cells under cursor iff mouse is over a cell, and mouse button is down
+const paintCell = (event, id) => {
+  if (paintingAllowed) {
+    console.log(id)
+  }
+}
+
 // display a single day
 const Day = ({ date, offset }) => {
+  const key = date.format("YYYY-MMM-DD")
   return (
-    <div className="day">
+    <div key={key} className="day" onMouseOver={ee => paintCell(ee, key)}>
       {offset}
     </div>
   )
@@ -15,7 +34,7 @@ const Day = ({ date, offset }) => {
 const Week = ({ basedate, index, length }) => {
   let days = Array(length).fill(0)
   return (
-    <div className="week">
+    <div className="week" key={index}>
       {days.map((_, ii) =>
         <Day date={basedate.clone().add(ii, "days")} offset={ii} />
       )}
@@ -32,7 +51,13 @@ const Calendar = ({ year }) => {
   let days = end.diff(start, "days") + 1
   let weeks = Array(Math.ceil(days / 7)).fill(0)
   return (
-    <div className="year">
+    <div
+      className="year"
+      key={year}
+      onMouseLeave={blockPainting}
+      onMouseDown={ee => allowPainting(ee)}
+      onMouseUp={blockPainting}
+    >
       {days}
       {weeks.map((_, ii) =>
         <Week
