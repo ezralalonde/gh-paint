@@ -1,6 +1,7 @@
 import React from "react"
 import moment from "moment"
 import "./calendar.css"
+import { shades } from "./data.js"
 
 let paintingAllowed = false
 

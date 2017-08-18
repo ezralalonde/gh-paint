@@ -1,5 +1,6 @@
 import React from "react"
 import "./pallette.css"
+import {shades} from "./data.js"
 
 // each of the squares that represents a selectable colour
 const Square = ({ shade, index, group }) => {
@@ -28,9 +29,6 @@ const Text = ({ children }) => {
     </div>
   )
 }
-
-// the shades available for selection
-const shades = ["#eee", "#c6e48b", "#7bc96f", "#239a3b", "#196127"]
 
 const Pallette = () => {
   return (
