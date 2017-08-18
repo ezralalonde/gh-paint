@@ -3,41 +3,56 @@ import moment from "moment"
 import "./calendar.css"
 import { shades } from "./data.js"
 
-let paintingAllowed = false
+let canDragToPaint = false
+let paintColor = 2
 
-const allowPainting = event => {
+const allowDragToPaint = event => {
   event.preventDefault()
-  paintingAllowed = true
+  canDragToPaint = true
 }
 
-const blockPainting = () => {
-  paintingAllowed = false
-}
-
-// mark the cells under cursor iff mouse is over a cell, and mouse button is down
-const paintCell = (event, id) => {
-  if (paintingAllowed) {
-    console.log(id)
-  }
+const blockDragToPaint = () => {
+  canDragToPaint = false
 }
 
 // display a single day
-const Day = ({ date, offset }) => {
-  const key = date.format("YYYY-MMM-DD")
-  return (
-    <div key={key} className="day" onMouseOver={ee => paintCell(ee, key)}>
-      {offset}
-    </div>
-  )
+class Day extends React.PureComponent {
+  state = {
+    color: this.props.color
+  }
+
+  // change day's color
+  paint = color => {
+    this.setState({ color: color })
+  }
+
+  dragPaint = color => {
+    if (canDragToPaint) {
+      this.paint(color)
+      console.log(`painted ${this.props.date.format("YYYY-MMM-DD")}`)
+    }
+  }
+
+  render() {
+    const { date } = this.props
+    return (
+      <div
+        className="day"
+        onMouseOver={() => this.dragPaint(paintColor)}
+        onMouseDown={() => this.paint(paintColor)}
+        style={{ backgroundColor: shades[this.state.color] }}
+      />
+    )
+  }
 }
 
 // display `length` consecutive days in a div, starting from `basedate`
-const Week = ({ basedate, index, length }) => {
+const Week = ({ basedate, length }) => {
   let days = Array(length).fill(0)
   return (
-    <div className="week" key={index}>
+    <div className="week">
       {days.map((_, ii) =>
-        <Day date={basedate.clone().add(ii, "days")} offset={ii} />
+        <Day key={ii} date={basedate.clone().add(ii, "days")} color={0} />
       )}
     </div>
   )
@@ -55,16 +70,16 @@ const Calendar = ({ year }) => {
     <div
       className="year"
       key={year}
-      onMouseLeave={blockPainting}
-      onMouseDown={ee => allowPainting(ee)}
-      onMouseUp={blockPainting}
+      onMouseLeave={blockDragToPaint}
+      onMouseDown={ee => allowDragToPaint(ee)}
+      onMouseUp={blockDragToPaint}
     >
       {days}
       {weeks.map((_, ii) =>
         <Week
+          key={ii}
           basedate={start.clone().add(ii, "weeks")}
           length={(ii + 1) * 7 <= days ? 7 : days % 7}
-          index={ii}
         />
       )}
     </div>
